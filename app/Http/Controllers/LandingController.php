@@ -16,4 +16,7 @@ class LandingController extends Controller
     public function showLanding(){
         return view('welcome');
     }
+    public function showHome(){
+        return view('home');
+    }
 }
