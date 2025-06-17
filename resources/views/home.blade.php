@@ -16,7 +16,9 @@
     </div>
     <div class="text-center mx-auto max-w-md">
         <h1 class="mt-10">Dashboard</h1>
-        <h2>Hello</h2>
+        @auth
+        <h2>Hello there, {{Auth::user()->name}}</h2>
+        @endauth
     </div>
 </body>
 </html>
