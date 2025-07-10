@@ -17,8 +17,12 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/home', [LandingController::class, 'showHome'])->name('show.home');
+    Route::get('dashboard.student', [LandingController::class, 'showHome'])->name('show.student');
+    Route::get('dashboard.hte', [LandingController::class, 'showHTE'])->name('show.hte');
+    Route::get('dashboard.sip', [LandingController::class, 'showSip'])->name('show.sip');
 });
+
+    
 
 Route::get('/welcome', [LandingController::class, 'showLanding'])->name('show.landing');
 

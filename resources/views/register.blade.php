@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-screen bg-gray-100">
     <div class="ml-10 mt-10">
-        <a href="{{ route('show.landing') }}" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Back</a>
+        <a href="#" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Back</a>
     </div>
 
     <div class="mt-20 flex items-center justify-center text-center p-6">
@@ -30,14 +30,11 @@
                 <label for="email" class="mb-5">Email</label>
                 <input name="email" type="email" placeholder="Email" class="text-center p-2 border rounded mb-4" required>
 
-                <label for="name" class="mb-5">Name</label>
-                <input name="name" type="text" placeholder="Name" class="text-center p-2 border rounded mb-4" required>
+                <label for="username" class="mb-5">Name</label>
+                <input name="name" type="text" placeholder="Username" class="text-center p-2 border rounded mb-4" required>
 
                 <label for="password" class="mb-5">Password</label>
                 <input name="password" type="password" placeholder="Password" class="text-center p-2 border rounded mb-4" required>
-
-                <label for="password_confirmation" class="mb-5">Confirm Password</label>
-                <input name="password_confirmation" type="password" placeholder="Confirm Password" class="text-center p-2 border rounded" required>
 
                 <button class="block px-6 py-2 mt-5 cursor-pointer bg-blue-500 text-white rounded hover:bg-blue-600">Register</button>
             </div>

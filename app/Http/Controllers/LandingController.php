@@ -9,7 +9,6 @@ class LandingController extends Controller
     public function showLogin(){
         return view('login');
     }
-
     public function showRegister(){
         return view('register');
     }
@@ -17,6 +16,12 @@ class LandingController extends Controller
         return view('welcome');
     }
     public function showHome(){
-        return view('home');
+        return view('dashboard.student');
+    }
+    public function showHTE(){
+        return view('dashboard.hte');
+    }
+    public function showSip(){
+        return view('dashboard.sip');
     }
 }

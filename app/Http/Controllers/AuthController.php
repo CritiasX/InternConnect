@@ -3,23 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 
 class AuthController extends Controller
-{
+{   
+    // L O G I N 
     public function login(Request $request){
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'name' => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials) && Auth::user()->role == 0) {
             $request->session()->regenerate();
-            return redirect()->intended('/home');
+            return redirect()->route('show.student');
+        }elseif(Auth::attempt($credentials) && Auth::user()->role == 1){
+            $request->session()->regenerate();
+            return redirect()->route('show.hte');
+        }
+        elseif(Auth::attempt($credentials) && Auth::user()->role == 2){
+            $request->session()->regenerate();
+            return redirect()->route('show.sip');
         }
 
         throw ValidationValidationException::withMessages([
@@ -31,30 +40,35 @@ class AuthController extends Controller
         ])->withInput();
     }
 
+    // L O G O U T
     public function logout(Request $request){
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('show.login');
+        return redirect()->intended();
     }
 
+
+    // R E G I S T E R
     public function register(Request $request)
     {
         $incomingFields = $request->validate([
-            'name' => ['required', 'string', Rule::unique('users', 'name')],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'string', 'min:8', 'max:200', 'confirmed']
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string'
         ]);
 
-        // Hash the password
-        $incomingFields['password'] = bcrypt($incomingFields['password']);
-
-        $user = User::create($incomingFields);
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'role'=>0,
+            'password' => Hash::make($request->password)
+        ]);
 
         Auth::login($user);
 
-        return redirect()->route('show.home');
+        return redirect()->route('show.student');
     }
 }
